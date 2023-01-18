@@ -8,10 +8,10 @@ CREATE TABLE users (
 );
 
 INSERT INTO users(id, email, password)
-VALUES('Milena', 'milena@labenu.com','m123'),
-('Maria', 'maria@labenu.com','ma123'),
-('Flávia', 'flavia@labenu.com', 'f123'),
-('Iraídes', 'iraides@labenu.com', 'i123');
+VALUES('1', 'milena@labenu.com','m123'),
+('2', 'maria@labenu.com','ma123'),
+('3', 'flavia@labenu.com', 'f123'),
+('4', 'iraides@labenu.com', 'i123');
 
 PRAGMA table_info('users');
 
@@ -68,8 +68,39 @@ WHERE price >= '100' AND price <= '2000'
 ORDER BY price ASC;
 
 SELECT * FROM products
+ORDER BY price ASC
 LIMIT 20 OFFSET 0
-ORDER BY price ASC;
+;
+
+CREATE TABLE purchases (
+id TEXT PRIMARY KEY UNIQUE NOT NULL,
+total_price REAL UNIQUE NOT NULL,
+paid INTEGER NOT NULL,
+delivered_at TEXT ,
+buyer_id TEXT NOT NULL,
+FOREIGN KEY (buyer_id) REFERENCES users(id)
+);
+
+INSERT INTO purchases(id, total_price, paid, buyer_id)
+VALUES
+('c001', 50.00, 0, '1'),
+('c002', 100.00, 0, '1'),
+('c003', 150.00, 0, '2'),
+('c004', 200.00, 0, '2');
+
+DROP TABLE purchases ;
+
+
+UPDATE purchases
+SET delivered_at = DATETIME ("NOW")
+WHERE id = '1' ;
+
+SELECT * FROM purchases
+INNER JOIN users
+ON purchases.buyer_id = users.id
+WHERE purchases.buyer_id = '1';
+
+SELECT * FROM purchases;
 
 
 
