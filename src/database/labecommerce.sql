@@ -3,7 +3,8 @@
 CREATE TABLE users (
   id TEXT PRIMARY KEY UNIQUE NOT NULL,
   email TEXT UNIQUE NOT NULL,
-  password TEXT NOT NULL 
+  password TEXT NOT NULL
+
 
 );
 
@@ -93,14 +94,40 @@ DROP TABLE purchases ;
 
 UPDATE purchases
 SET delivered_at = DATETIME ("NOW")
-WHERE id = '1' ;
+WHERE buyer_id = '1' ;
 
 SELECT * FROM purchases
 INNER JOIN users
 ON purchases.buyer_id = users.id
-WHERE purchases.buyer_id = '1';
+WHERE purchases.buyer_id = '2';
 
 SELECT * FROM purchases;
+-------------------------------
+
+CREATE TABLE purchases_products(
+purchase_id TEXT NOT NULL,
+product_id TEXT NOT NULL,
+quantity INTEGER NOT NULL,
+FOREIGN KEY (purchase_id) REFERENCES purchases(id),
+FOREIGN KEY (product_id) REFERENCES products(id)
+);
+
+DROP TABLE purchases_products;
+
+INSERT INTO purchases_products(purchase_id, product_id, quantity)
+VALUES
+ ('c001', 'p003', 1),
+ ('c002', 'p001', 2),
+ ('c003', 'p004', 4);
+
+ SELECT 
+ purchase_id AS purchaseId,
+ product_id AS productId,
+ purchases_products.quantity AS quantity
+ FROM purchases_products
+ INNER JOIN purchases ON purchases_products.purchase_id = purchases.id
+ INNER JOIN products ON purchases_products.product_id = products.id;
+
 
 
 
