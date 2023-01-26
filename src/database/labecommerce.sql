@@ -2,17 +2,18 @@
 
 CREATE TABLE users (
   id TEXT PRIMARY KEY UNIQUE NOT NULL,
+  name TEXT NOT NULL,
   email TEXT UNIQUE NOT NULL,
   password TEXT NOT NULL
 
 
 );
 
-INSERT INTO users(id, email, password)
-VALUES('1', 'milena@labenu.com','m123'),
-('2', 'maria@labenu.com','ma123'),
-('3', 'flavia@labenu.com', 'f123'),
-('4', 'iraides@labenu.com', 'i123');
+INSERT INTO users(id, name, email, password)
+VALUES('1', "milena", 'milena@labenu.com','m123'),
+('2', "maria", 'maria@labenu.com','ma123'),
+('3', "flavia", 'flavia@labenu.com', 'f123'),
+('4', "iraides",'iraides@labenu.com', 'i123');
 
 PRAGMA table_info('users');
 
@@ -24,16 +25,17 @@ CREATE TABLE products (
     id TEXT PRIMARY KEY UNIQUE NOT NULL,
     name TEXT NOT NULL,
     price REAL NOT NULL,
-    category TEXT NOT NULL
+    category TEXT NOT NULL,
+    imageUrl TEXT NOT NULL
 );
 
-INSERT INTO products(id,name,price,category)
-VALUES('p001', 'colar',10.50,'bijuterias'),
-('p002', 'blusa', 85.50, 'roupas'),
-('p003', 'celular', 1500.00, 'eletrônicos'),
-('p004', 'brinco', 5.50, 'bijuterias'),
-('p005', 'calça', 150.00, 'roupas'),
-('p006', 'computador', 1500.00, 'eletrônicos');
+INSERT INTO products(id,name,price,category, imageUrl)
+VALUES('p001', 'colar',10.50,'bijuterias',"html..."),
+('p002', 'blusa', 85.50, 'roupas', "html..."),
+('p003', 'celular', 1500.00, 'eletrônicos', "html..."),
+('p004', 'brinco', 5.50, 'bijuterias', "html..."),
+('p005', 'calça', 150.00, 'roupas', "html..."),
+('p006', 'computador', 1500.00, 'eletrônicos', "html...");
 
 PRAGMA table_info('products');
 
