@@ -5,6 +5,7 @@ export enum Category {
     
     export type TUser ={
         id: string,
+        name: string,
         email: string,
         password: string
     }
@@ -13,7 +14,8 @@ export enum Category {
         id: string,
         name: string,
         price: number,
-        category: Category
+        category: Category,
+        imageUrl: string
     }
     
     export type TPurchase = {
