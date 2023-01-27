@@ -3,21 +3,8 @@ import { Category, TProduct, TPurchase, TUser } from "./types";
 import express from 'express';
 import { Request, Response} from 'express';
 import cors from 'cors';
-import { isErrored } from "stream";
 import { db } from './database/knex';
 
-// console.log("USERS", users)
-// console.log("PRODUCTS", products)
-// console.log("PURCHASE", purchase)
-// console.log(createUser("u3", "user3@email.com", "1234"))
-// console.table(getAllUsers())
-// console.log(createProduct("p3", "calça", 4321,Category.CLOTHES))
-// console.table(getAllProducts())
-// console.log(createProduct("p4", "celular", 400, Category.ELECTRONICS))
-// console.table(getProductById("p2"))
-// console.table(queryProductsByName("blusa"))
-// console.table(createPurchase("u1", "p2", 1, 7))
-// console.log(getAllPurchasesFromUserId("u2"))
 
 const app = express();
 app.use(express.json());
@@ -27,7 +14,8 @@ app.listen(3003, () => {
     console.log("Servidor rodando na porta 3003")
 });
 
-//---------------------------
+//-------------------------------------------------
+
 app.get('/users', (req: Request, res:Response) => {
     try {
         res.status(200).send(users)
@@ -41,7 +29,7 @@ app.get('/users', (req: Request, res:Response) => {
     
 });
 
-//------------------------------------------
+//-------------------------------------------------
 
 app.get('/products', (req: Request, res: Response) => {
     try {
@@ -58,7 +46,7 @@ app.get('/products', (req: Request, res: Response) => {
     
 });
 
-//-------------------------------------------
+//-------------------------------------------------
 
 app.get('/purchase', (req: Request, res: Response) => {
     try {
@@ -75,41 +63,8 @@ app.get('/purchase', (req: Request, res: Response) => {
     
 });
 
-//-------------------------------------------
+//-------------------------------------------------
 
-
-// app.get('/products/search', (req:Request, res:Response) =>{
-//     try {
-//         const q = req.query.q as string
-
-//     const result = products.filter((products) => {
-//         return products.name.toLowerCase().includes(q.toLowerCase())
-//     })
-  
-//     if(q.length < 1 ) {
-//         res.status(400)
-//         throw new Error("Query params deve possuir pelo menos um caractere")
-//     }
-
-//     if(result.length<1){
-//         res.status(404)
-//         throw new Error("Produto não encontrado")
-//     }
-//     res.status(200).send(result)
-        
-//     } catch (error: any) {
-//         console.log(error)
-
-//     if(res.statusCode === 200){
-//         res.status(500)
-//     }
-//     res.send(error.message)
-        
-//     }
-    
-// });
-
-//---------------------------------------------
 app.post('/users', async (req: Request, res: Response) => {
     try {
         const {id, name,email, password} = req.body as TUser
@@ -189,7 +144,7 @@ app.post('/users', async (req: Request, res: Response) => {
    
 });
 
-//----------------------------------------------
+//-------------------------------------------------
 
 app.post('/products', async (req: Request, res: Response) => {
     try {
@@ -243,15 +198,6 @@ app.post('/products', async (req: Request, res: Response) => {
         throw new Error('o price deve ter pelo menos um valor')
     }
 
-    // if(category !== undefined) {
-    //     if(typeof category !== Category){
-    //         res.status(400)
-    //         throw new Error("o price deve ser do tipo number")
-    //     }
-    // }
-
-
-
     products.push(newProducts)
 
     await db.raw(`
@@ -277,7 +223,7 @@ app.post('/products', async (req: Request, res: Response) => {
     
 });
 
-//----------------------------------------------
+//-------------------------------------------------
 
 app.post('/purchase', async(req: Request, res: Response) => {
     try {
@@ -367,33 +313,7 @@ app.post('/purchase', async(req: Request, res: Response) => {
 
 });
 
-//----------------------------------------------
-
-// app.get('/products/:id', async (req: Request, res: Response) => {
-//     try {
-//         const id = req.params.id 
-//        const [avalibleID] = await db.raw(`SELECT * FROM products WHERE id = "${id}" ;`)
-        
-//        if(avalibleID){
-//         res.status(200).send(avalibleID)
-//        } else {
-//         res.status(404).send("Produto não encontrado")
-//        }
-
-
-//     } catch (error: any) {
-//         console.log(error)
-
-//         if(res.statusCode === 200){
-//             res.status(500)
-//         }
-//         res.send(error.message)
-        
-//     }
-    
-// })
-
-//---------------------------------------------------
+//-------------------------------------------------
 
 app.get('/users/:id/purchases', async (req: Request, res: Response) => {
     try {
@@ -420,7 +340,7 @@ app.get('/users/:id/purchases', async (req: Request, res: Response) => {
  
  )
 
- //----------------------------------------------
+//-------------------------------------------------
 
 
 app.delete('/users/:id', (req: Request, res: Response) => {
@@ -451,7 +371,7 @@ app.delete('/users/:id', (req: Request, res: Response) => {
     
 )
 
-//----------------------------------------------
+//-------------------------------------------------
 
 app.delete('/products/:id', (req: Request, res:Response) => {
     try {
@@ -478,7 +398,7 @@ app.delete('/products/:id', (req: Request, res:Response) => {
    
 })
 
-//----------------------------------------------
+//-------------------------------------------------
 
 
 app.delete('/purchase/:id', (req: Request, res:Response) => {
@@ -506,7 +426,7 @@ app.delete('/purchase/:id', (req: Request, res:Response) => {
    
 })
 
-//----------------------------------------------
+//-------------------------------------------------
 
 app.put('/users/:id', (req: Request, res: Response) => {
     try {
@@ -544,7 +464,7 @@ app.put('/users/:id', (req: Request, res: Response) => {
     
 })
 
-//----------------------------------------------
+//-------------------------------------------------
 
 app.put('/products/:id', (req: Request, res: Response) => {
     try {
@@ -578,7 +498,7 @@ app.put('/products/:id', (req: Request, res: Response) => {
    
 })
 
-//-----------------------------------------------------KNEX
+//-------------------------------------------------
 
 app.get('/users', async (req: Request, res: Response) => {
     try{
@@ -600,6 +520,8 @@ app.get('/users', async (req: Request, res: Response) => {
         }
     }
 });
+
+//-------------------------------------------------
 
 app.get('/products', async (req: Request, res: Response) => {
     try{
@@ -623,7 +545,7 @@ app.get('/products', async (req: Request, res: Response) => {
 });
 
 
-//-------------------------------------------
+//-------------------------------------------------
 
 
 app.get('/products/search', async (req:Request, res:Response) =>{
@@ -664,7 +586,7 @@ app.get('/products/search', async (req:Request, res:Response) =>{
     
 });
 
-//-----------------------------------------
+//-------------------------------------------------
 
 app.get("/purchase/:id",  async (req:Request, res:Response) =>{
 
